@@ -26,25 +26,13 @@ public class PaymentController {
 
     @Autowired
     PaymentService paymentService;
-    @Autowired
-    ApplicationContext context;
+
 
     @PostMapping(value = Endpoint.INITIATE_PAYMENT)
     public ResponseEntity<PaymentResponse> sale(@RequestBody PaymentRequest paymentRequest) {
         /*LogMessage.setLogMessagePrefix("/INITIATE_PAYMENT");
         LogMessage.log(LOGGER, " initiate payment request " + paymentRequest);
         */
-
-        String validationRules = "PROVIDER_ID_FILTER,PROVIDER_ID_FILTER";
-        List<String> validatorList = Stream.of(validationRules.split(",")).collect(Collectors.toList());
-
-        validatorList.forEach(validator->{
-            ValidatorEnum validatorEnum = ValidatorEnum.getEnumByName(validator);
-            Validator validationRule = context.getBean(validatorEnum.getValidatorClass());
-            validationRule.doValidate(paymentRequest);
-        });
-
-
 
         System.out.println("Invoking sale method");
         return new ResponseEntity<>(paymentService.validateAndInitiatePayment(paymentRequest), HttpStatus.CREATED);
