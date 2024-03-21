@@ -97,6 +97,96 @@ public class ProviderIdValidatorTest {
 
     }
 
+    @Test
+    void testDoValidatePaymentRequestNull(){
+        PaymentRequest paymentRequest = null;
+
+        ValidationException returnedException = assertThrows(ValidationException.class,
+                ()-> providerIdValidator.doValidate(paymentRequest));
+
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,returnedException.getHttpStatus());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorCode(),
+                returnedException.getErrorCode());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorMessage(),
+                returnedException.getErrorMessage());
+    }
+
+    @Test
+    void testDoValidatePaymentIsNull(){
+        PaymentRequest paymentRequest = new PaymentRequest();
+        User user = TestDataProviderUtil.getTestUserBean();
+
+        paymentRequest.setUser(user);
+        paymentRequest.setPayment(null);
+
+
+        ValidationException returnedException = assertThrows(ValidationException.class,
+                ()-> providerIdValidator.doValidate(paymentRequest));
+
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,returnedException.getHttpStatus());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorCode(),
+                returnedException.getErrorCode());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorMessage(),
+                returnedException.getErrorMessage());
+    }
+
+    @Test
+    void testDoValidateProviderIDWithLeadTrailSpaces(){
+        PaymentRequest paymentRequest = new PaymentRequest();
+
+        Payment payment = TestDataProviderUtil.getTestPayment();
+        payment.setProviderId("   TrUstlY    ");
+        User user = TestDataProviderUtil.getTestUserBean();
+
+        paymentRequest.setPayment(payment);
+        paymentRequest.setUser(user);
+
+        Assertions.assertDoesNotThrow(()-> providerIdValidator.doValidate(paymentRequest));
+
+    }
+
+    @Test
+    void testDoValidateNullProviderID(){
+        PaymentRequest paymentRequest = new PaymentRequest();
+
+        Payment payment = TestDataProviderUtil.getTestPayment();
+        payment.setProviderId(null);
+        User user = TestDataProviderUtil.getTestUserBean();
+
+        paymentRequest.setPayment(payment);
+        paymentRequest.setUser(user);
+
+        ValidationException returnedException = assertThrows(ValidationException.class,
+                ()-> providerIdValidator.doValidate(paymentRequest));
+
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,returnedException.getHttpStatus());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorCode(),
+                returnedException.getErrorCode());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorMessage(),
+                returnedException.getErrorMessage());
+    }
+
+    @Test
+    void testDoValidateBlankProviderID(){
+        PaymentRequest paymentRequest = new PaymentRequest();
+
+        Payment payment = TestDataProviderUtil.getTestPayment();
+        payment.setProviderId("");
+        User user = TestDataProviderUtil.getTestUserBean();
+
+        paymentRequest.setPayment(payment);
+        paymentRequest.setUser(user);
+
+        ValidationException returnedException = assertThrows(ValidationException.class,
+                ()-> providerIdValidator.doValidate(paymentRequest));
+
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST,returnedException.getHttpStatus());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorCode(),
+                returnedException.getErrorCode());
+        Assertions.assertEquals(ErrorCodeEnum.PROVIDER_ID_VALIDATION_FAILED.getErrorMessage(),
+                returnedException.getErrorMessage());
+    }
+
 
 
 }
