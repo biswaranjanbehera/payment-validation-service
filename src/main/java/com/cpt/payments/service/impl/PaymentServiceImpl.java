@@ -48,7 +48,7 @@ public class PaymentServiceImpl implements PaymentService {
         //Todo replace with actual trustly integration code
         PaymentResponse res = new PaymentResponse();
         res.setPaymentReference("Payment-reference");
-        res.setRedirectUrl("trudtly-url");
+        res.setRedirectUrl("trustly-url");
         return res;
     }
 }
