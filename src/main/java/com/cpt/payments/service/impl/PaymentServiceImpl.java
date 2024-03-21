@@ -6,6 +6,9 @@ import com.cpt.payments.pojo.PaymentResponse;
 import com.cpt.payments.service.PaymentService;
 import com.cpt.payments.service.Supplier;
 import com.cpt.payments.service.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.MarkerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -17,6 +20,7 @@ import java.util.stream.Stream;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
+    private Logger LOGGER = LogManager.getLogger(PaymentServiceImpl.class);
     @Autowired
     ApplicationContext context;
 
@@ -25,7 +29,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public PaymentResponse validateAndInitiatePayment(PaymentRequest paymentRequest) {
-        System.out.println("Invoking service method  - validateand Initiate Payment || paymentrequest:- "+paymentRequest);
+        LOGGER.info("Invoking service method  - validateand Initiate Payment || paymentrequest:- "+paymentRequest);
 
 
         //String validationRules = "PROVIDER_ID_FILTER,PROVIDER_ID_FILTER";

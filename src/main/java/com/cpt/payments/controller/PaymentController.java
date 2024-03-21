@@ -7,6 +7,8 @@ import com.cpt.payments.pojo.PaymentResponse;
 import com.cpt.payments.service.PaymentService;
 import com.cpt.payments.service.Validator;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,8 @@ import java.util.stream.Stream;
 @RequestMapping(Endpoint.VALIDATION_MAPPING)
 public class PaymentController {
 
+    private static final Logger LOGGER = LogManager.getLogger(PaymentController.class);
+
     @Autowired
     PaymentService paymentService;
 
@@ -34,7 +38,14 @@ public class PaymentController {
         LogMessage.log(LOGGER, " initiate payment request " + paymentRequest);
         */
 
-        System.out.println("Invoking sale method");
+        LOGGER.debug("Invoking sale method");
+
+        /*LOGGER.trace();
+        LOGGER.debug();
+        LOGGER.info();
+        LOGGER.warn();
+        LOGGER.error();
+        LOGGER.fatal();*/
         return new ResponseEntity<>(paymentService.validateAndInitiatePayment(paymentRequest), HttpStatus.CREATED);
     }
 
