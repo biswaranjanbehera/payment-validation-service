@@ -19,8 +19,6 @@ public class ProviderIdValidator implements Validator {
 	@Override
 	public void doValidate(PaymentRequest paymentRequest) {
 		LOGGER.info("Validating PaymentRequest:- {}",paymentRequest);
-		//todo
-		boolean isError = false;
 		if(paymentRequest!=null
 				&& paymentRequest.getPayment()!=null
 				&& paymentRequest.getPayment().getProviderId()!=null){
