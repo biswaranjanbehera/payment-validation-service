@@ -1,8 +1,8 @@
 package com.cpt.payments.constant;
 
 import com.cpt.payments.service.Validator;
-import com.cpt.payments.service.impl.validators.PaymentTypeValidator;
-import com.cpt.payments.service.impl.validators.ProviderIdValidator;
+import com.cpt.payments.service.impl.PaymentTypeValidator;
+import com.cpt.payments.service.impl.ProviderIdValidator;
 import lombok.Getter;
 
 public enum ValidatorEnum {

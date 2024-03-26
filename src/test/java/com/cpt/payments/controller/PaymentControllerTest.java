@@ -5,8 +5,10 @@ import com.cpt.payments.pojo.Payment;
 import com.cpt.payments.pojo.PaymentRequest;
 import com.cpt.payments.pojo.PaymentResponse;
 import com.cpt.payments.pojo.User;
+import com.cpt.payments.service.HmacSha256Provider;
 import com.cpt.payments.service.PaymentService;
 import com.cpt.payments.utils.TestDataProviderUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +26,12 @@ public class PaymentControllerTest {
 
     @Mock
     private PaymentService paymentService;
+
+    @Mock
+    private HttpServletRequest httpServletRequest;
+
+    @Mock
+    private HmacSha256Provider hmacSha256Provider;
 
     @InjectMocks
     PaymentController paymentController;
@@ -45,7 +53,7 @@ public class PaymentControllerTest {
         //Defining the Mock behaviour
         when(paymentService.validateAndInitiatePayment(any())).thenReturn(paymentResponse);
 
-        ResponseEntity<PaymentResponse> saleResponse = paymentController.sale(paymentRequest);
+        ResponseEntity<PaymentResponse> saleResponse = paymentController.sale(paymentRequest,httpServletRequest);
         Assertions.assertNotNull(saleResponse);
         Assertions.assertEquals(HttpStatus.CREATED,saleResponse.getStatusCode());
 

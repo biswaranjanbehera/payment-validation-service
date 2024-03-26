@@ -5,6 +5,7 @@ import com.cpt.payments.exceptions.ValidationException;
 import com.cpt.payments.pojo.Payment;
 import com.cpt.payments.pojo.PaymentRequest;
 import com.cpt.payments.pojo.User;
+import com.cpt.payments.service.impl.PaymentTypeValidator;
 import com.cpt.payments.utils.TestDataProviderUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

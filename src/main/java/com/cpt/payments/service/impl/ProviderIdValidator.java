@@ -1,4 +1,4 @@
-package com.cpt.payments.service.impl.validators;
+package com.cpt.payments.service.impl;
 
 
 import com.cpt.payments.constant.ErrorCodeEnum;
